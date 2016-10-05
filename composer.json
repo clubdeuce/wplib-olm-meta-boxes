@@ -1,5 +1,5 @@
 {
-	"name": "clubdeuce/wplib-olm-component-metaboxes",
+	"name": "clubdeuce/wplib-olm-component-meta-boxes",
 	"type": "library",
 	"description": "Meta Box component for WPLib.",
 	"keywords": [ "wordpress", "php", "library", "mvc", "wplib", "modules" ],
