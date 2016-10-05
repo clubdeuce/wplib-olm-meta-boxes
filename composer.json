@@ -2,7 +2,7 @@
 	"name": "clubdeuce/wplib-olm-meta-boxes",
 	"type": "library",
 	"description": "Meta Box component for WPLib.",
-	"keywords": [ "wordpress", "php", "library", "mvc", "wplib", "modules" ],
+	"keywords": [ "wordpress", "php", "library", "mvc", "wplib", "modules", "meta" ],
 	"homepage": "http://github.com/clubdeuce/wplib-olm-meta-boxes",
  	"license": "GPL-2.0+",
 	"authors": [
@@ -16,17 +16,13 @@
 		"php": ">=5.4.0"
 	},
 	"autoload": {
-		"psr-0": { "WPLib_": "includes/" }
+		"psr-0": { "ClubDeuce_": "includes/" }
 	},
 	"support": {
-		"email": "support@wplib.org",
-		"issues": "https://github.com/wplib/wplib/issues",
+		"issues": "https://github.com/clubdeuce/wplib-olm-meta-boxes/issues",
 		"forum": "https://wplib.slack.com/",
-		"source":"https://github.com/wplib/wplib",
-		"docs": "http://wplib.org"
-	},
-	"suggest": {
-		"wplib/wplib-box" : "The Easiest Local Development Solution for WordPress Developers"
+		"source":"https://github.com/clubdeuce/wplib-olm-meta-boxes",
+		"docs": "https://github.com/clubdeuce/wplib-olm-meta-boxes/wiki"
 	}
 }
 
