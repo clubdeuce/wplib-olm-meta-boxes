@@ -3,12 +3,12 @@
 /**
  * Class ClubDeuce_Meta_Box_Base
  *
- * @property ClubDeuce_Meta_Box_Model_Base $model
- * @property ClubDeuce_Meta_Box_View_Base  $view
- * @mixin    ClubDeuce_Meta_Box_Model_Base
- * @mixin    ClubDeuce_Meta_Box_View_Base
+ * @property ClubDeuce_Meta_Box_Model $model
+ * @property ClubDeuce_Meta_Box_View  $view
+ * @mixin    ClubDeuce_Meta_Box_Model
+ * @mixin    ClubDeuce_Meta_Box_View
  */
-class ClubDeuce_Meta_Box_Base extends WPLib_Item_Base {
+class ClubDeuce_Meta_Box extends WPLib_Item_Base {
 
     /**
      * Register the action hook callbacks
@@ -29,7 +29,7 @@ class ClubDeuce_Meta_Box_Base extends WPLib_Item_Base {
         add_meta_box(
             $this->item()->id,
             $this->item()->title,
-            array( $this->view(), 'the_meta_box' ),
+            is_null( $this->item()->callback ) ? array( $this->view(), 'the_meta_box' ) : $this->item()->callback,
             $this->item()->screen,
             $this->item()->context,
             $this->item()->priority,

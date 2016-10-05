@@ -5,48 +5,36 @@
  */
 class ClubDeuce_Meta_Boxes_Base extends WPLib_Module_Base {
 
-    const INSTANCE_CLASS = 'ClubDeuce_Meta_Box_Base';
+    const INSTANCE_CLASS = 'ClubDeuce_Meta_Box';
 
-    protected static $meta_boxes = array();
+    protected static $_meta_boxes = array();
 
     static function on_load() {
 
-        static::add_class_action( 'init' );
+        static::add_class_action( 'admin_init' );
 
     }
 
-    /**
-     * @param string $class
-     */
-    static function register_meta_box( $class = 'ClubDeuce_Meta_Box_Base' ) {
+    static function _admin_init() {
 
-        static::$meta_boxes[] = $class;
+        array_walk( static::$_meta_boxes, function( $params, $id ) {
 
-    }
+            $params = wp_parse_args( $params, array(
+                'id' => $id,
+            ) );
 
-    static function _init() {
-
-        $meta_boxes = array_filter( static::$meta_boxes, function( $class ) {
-            return class_exists( $class );
+            (new ClubDeuce_Meta_Box( $params ) )->register_actions();
         } );
 
-        array_walk( $meta_boxes, array( __CLASS__, '_add_meta_box') );
-
     }
 
     /**
-     * @param string $class
+     * @param string $id
+     * @param array  $args
      */
-    private static function _add_meta_box( $class ) {
+    static function register_meta_box( $id, $args = array() ) {
 
-        /**
-         * @var ClubDeuce_Meta_Box_Base $meta_box
-         */
-        $meta_box = new $class();
-
-        if ( is_a( $meta_box, 'ClubDeuce_Meta_Box_Base' ) ) {
-            $meta_box->register_actions();
-        }
+        static::$_meta_boxes[ $id ] = $args;
 
     }
 

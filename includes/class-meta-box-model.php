@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class ClubDeuce_Meta_Box_Model_Base
+ * Class ClubDeuce_Meta_Box_Model
  */
-abstract class ClubDeuce_Meta_Box_Model_Base extends WPLib_Model_Base {
+class ClubDeuce_Meta_Box_Model extends WPLib_Model_Base {
 
     /**
      * @var string
@@ -45,19 +45,37 @@ abstract class ClubDeuce_Meta_Box_Model_Base extends WPLib_Model_Base {
     var $callback_args;
 
     /**
-     * ClubDeuce_Meta_Box_Model_Base constructor.
+     * @var string
+     */
+    var $template;
+
+    /**
+     * @var string
+     */
+    var $instance_class;
+
+    /**
+     * @var array
+     */
+    var $fields;
+
+    /**
+     * ClubDeuce_Meta_Box_Model constructor.
      * @param array $args
      */
-    function __construct( $args = array() ) {
+    function __construct( $id, $args = array() ) {
 
         $args = wp_parse_args( $args, array(
-            'id'            => __CLASS__,
-            'title'         => __( 'Please specify a title for this metabox', 'clubdeuce_meta_box' ),
-            'callback'      => null,
-            'screen'        => array(),
-            'context'       => 'normal',
-            'priority'      => 'default',
-            'callback_args' => array(),
+            'id'             => $id,
+            'title'          => __( 'Please specify a title for this meta-box', 'clubdeuce_meta_box' ),
+            'callback'       => null,
+            'screen'         => array(),
+            'context'        => 'normal',
+            'priority'       => 'default',
+            'callback_args'  => array(),
+            'template'       => null,
+            'instance_class' => 'WPLib_Post',
+            'fields'         => array(),
         ) );
 
         if ( empty( $args['screen'] ) ) {
@@ -68,5 +86,10 @@ abstract class ClubDeuce_Meta_Box_Model_Base extends WPLib_Model_Base {
 
     }
 
+    function regiser_field( $id ) {
+
+        $this->fields [ $id ] = $params;
+
+    }
 
 }
