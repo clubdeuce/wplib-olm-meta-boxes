@@ -59,12 +59,11 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
         print '<p>' . PHP_EOL;
         printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
         printf(
-            '<input type="checkbox" id="%1$s" name="%2$s" placeholder="%3$s" value="%4$s" class="%5$s"> ' . PHP_EOL,
+            '<input type="checkbox" id="%1$s" name="%2$s" value="1" class="%3$s"%4$s> ' . PHP_EOL,
             $id,
             $params['name'],
-            $params['placeholder'],
-            $params['value'],
-            $params['class']
+            $params['class'],
+            checked( 1, $params['value'], false )
         );
         print '</p>';
 
