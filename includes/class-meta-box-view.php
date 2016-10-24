@@ -1,7 +1,5 @@
 <?php
 
-use \ClubDeuce\WPLib\Components\Fields;
-
 /**
  * Class ClubDeuce_Meta_Box_View_Base
  */
@@ -25,16 +23,31 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
                 'placeholder' => '',
                 'value'       => $item->$meta_key(),
                 'class'       => 'widefat',
+                'callback'    => [ __CLASS__, '_render_field' ]
             ) );
 
-            $method_name = "_render_{$params['type']}_field";
-
-            if ( ! method_exists( $this, $method_name ) ) {
-                $method_name = '_render_text_field';
+            if ( is_callable( $params['callback'] ) ) {
+                call_user_func( $params['callback'], $meta_key, $params );
+            } else {
+                WPLib::trigger_error( sprintf( __( 'The specified callback for the field %1$s is not a callable function.' ), $meta_key ) );
             }
-
-            call_user_func( array( $this, $method_name ), $meta_key, $params );
         }
+
+    }
+
+    /**
+     * @param string $id
+     * @param array  $params
+     */
+    public function _render_field( $id, $params ) {
+
+        $method_name = "_render_{$params['type']}_field";
+
+        if ( ! method_exists( $this, $method_name ) ) {
+            $method_name = '_render_text_field';
+        }
+
+        call_user_func( array( $this, $method_name ), $id, $params );
 
     }
 
