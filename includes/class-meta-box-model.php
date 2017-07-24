@@ -86,7 +86,7 @@ class ClubDeuce_Meta_Box_Model extends WPLib_Model_Base {
 
     }
 
-    function regiser_field( $id ) {
+    function register_field( $id, $params = array() ) {
 
         $this->fields [ $id ] = $params;
 

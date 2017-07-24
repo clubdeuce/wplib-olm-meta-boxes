@@ -23,7 +23,8 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
                 'placeholder' => '',
                 'value'       => $item->$meta_key(),
                 'class'       => 'widefat',
-                'callback'    => [ __CLASS__, '_render_field' ]
+                'callback'    => [ __CLASS__, '_render_field' ],
+                'options'     => array(),
             ) );
 
             if ( is_callable( $params['callback'] ) ) {
@@ -81,4 +82,35 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
         print '</p>';
 
     }
+
+    private function _render_media_uploader_field( $id, $params ) {
+
+        print '<p>' . PHP_EOL;
+        printf( '<button type="button" class="media-uploader">%2$s</button>' . PHP_EOL, $id, $params['label'] );
+        printf( '<input type="hidden" id="%1$s" name="%2$s" value="%3$s">' . PHP_EOL, $id, $params['name'], $params['value'] );
+        print '</p>';
+
+    }
+
+    /**
+     * @param $id
+     * @param $params
+     */
+    private function _render_multiselect_field( $id, $params ) {
+
+        print '<p>' . PHP_EOL;
+        printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
+        printf( '<select id="%1$s" name="%2$s[]" class="%3$s" multiple>', $id, $params['name'], $params['class'] );
+        array_walk($params['options'], array( __CLASS__, '_render_option' ) );
+        print '</select>' . PHP_EOL;
+        print '</p>' . PHP_EOL;
+
+    }
+
+    private function _render_option( $label, $value, $selected = false ) {
+
+        printf( '<option value="%1$s" %3$s>%2$s</option>', $value, $label, $selected ? 'selected' : '' );
+
+    }
+
 }
