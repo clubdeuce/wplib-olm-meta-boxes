@@ -113,4 +113,32 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
+	/**
+	 * @param string $id
+	 * @param array  $params
+	 */
+	private function _render_textarea_field( $id, $params ) {
+
+		$params = wp_parse_args( $params, array(
+			'class' => 'widefat',
+			'cols'  => 50,
+			'rows'  => 6
+		) );
+
+		print '<p>' . PHP_EOL;
+		printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
+		printf(
+			'<textarea id="%1$s" name="%2$s" placeholder="%3$s" class="%4$s" cols="%5$s" rows="%6$s">%7$s</textarea>' . PHP_EOL,
+			$id,
+			$params['name'],
+			$params['placeholder'],
+			$params['class'],
+			$params['cols'],
+			$params['rows'],
+			$params['value']
+		);
+		print '</p>';
+
+	}
+
 }
