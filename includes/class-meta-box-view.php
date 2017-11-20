@@ -52,7 +52,11 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
-    private function _render_text_field($id, $params ) {
+	/**
+	 * @param string $id
+	 * @param array  $params
+	 */
+    private function _render_text_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
         printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
@@ -68,6 +72,10 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
+	/**
+	 * @param string $id
+	 * @param array  $params
+	 */
     private function _render_checkbox_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
@@ -83,6 +91,10 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
+	/**
+	 * @param string $id
+	 * @param array  $params
+	 */
     private function _render_media_uploader_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
@@ -93,8 +105,8 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
     }
 
     /**
-     * @param $id
-     * @param $params
+     * @param string $id
+     * @param array  $params
      */
     private function _render_multiselect_field( $id, $params ) {
 
@@ -107,6 +119,11 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
+	/**
+	 * @param string $label
+	 * @param string $value
+	 * @param bool   $selected
+	 */
     private function _render_option( $label, $value, $selected = false ) {
 
         printf( '<option value="%1$s" %3$s>%2$s</option>', $value, $label, $selected ? 'selected' : '' );
