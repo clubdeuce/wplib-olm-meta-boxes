@@ -15,7 +15,8 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
         $item = new $classname( $post );
 
         foreach ( $this->item->fields as $meta_key ) {
-            $params = wp_parse_args( $item->meta_field( $meta_key ), array(
+            $field  = $item->meta_field( $meta_key );
+            $params = wp_parse_args( $field, array(
                 'type'        => 'text',
                 'label'       => ucfirst( str_replace( '_', ' ', $meta_key ) ),
                 'name'        => $meta_key,
@@ -26,6 +27,8 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
                 'callback'    => [ __CLASS__, '_render_field' ],
                 'options'     => array(),
             ) );
+
+	        $params = apply_filters( 'wpl_olm_mb_before_render_field', $meta_key, $params );
 
             if ( is_callable( $params['callback'] ) ) {
                 call_user_func( $params['callback'], $meta_key, $params );
@@ -105,25 +108,38 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
     }
 
     /**
+<<<<<<< HEAD
      * @param string $id
      * @param array  $params
+=======
+     * @param int   $id
+     * @param array $params
+>>>>>>> foo
      */
-    private function _render_multiselect_field( $id, $params ) {
+    private function _render_select_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
         printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
-        printf( '<select id="%1$s" name="%2$s[]" class="%3$s" multiple>', $id, $params['name'], $params['class'] );
+        printf( '<select id="%1$s" name="%2$s" class="%3$s" %4$s>', $id, $params['name'], $params['class'], isset( $params['multiple'] ) ? 'multiple' : '' );
+        printf( '<option value="">%1$s</option>', __( 'Select', 'clubdeuce' ) );
         array_walk($params['options'], array( __CLASS__, '_render_option' ) );
         print '</select>' . PHP_EOL;
         print '</p>' . PHP_EOL;
 
     }
 
-	/**
-	 * @param string $label
-	 * @param string $value
-	 * @param bool   $selected
-	 */
+    /**
+     * @param $id
+     * @param $params
+     */
+    private function _render_multiselect_field( $id, $params ) {
+
+        $params['multiple'] = true;
+
+        self::_render_select_field( $id, $params );
+
+    }
+
     private function _render_option( $label, $value, $selected = false ) {
 
         printf( '<option value="%1$s" %3$s>%2$s</option>', $value, $label, $selected ? 'selected' : '' );
@@ -157,5 +173,25 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 		print '</p>';
 
 	}
+
+
+	/**
+	 * @param string $id
+	 * @param array  $params
+	 */
+    private function _render_date_field( $id, $params ) {
+
+    	print '<p>' . PHP_EOL;
+	    printf( '<label for="$1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
+	    printf(
+	    	'<input type="text" id="%1$s" name="%2$s" class="%3$s datepicker" value="%4$s">' . PHP_EOL,
+		    $id,
+		    $params['name'],
+		    $params['class'],
+		    $params['value']
+	    );
+	    print '</p>' . PHP_EOL;
+
+    }
 
 }
