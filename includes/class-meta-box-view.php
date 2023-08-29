@@ -28,9 +28,9 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
                 'options'     => array(),
             ) );
 
-	        $params = apply_filters( 'wpl_olm_mb_before_render_field', $meta_key, $params );
+            $params = apply_filters( 'wpl_olm_mb_before_render_field', $params, $meta_key );
 
-            if ( is_callable( $params['callback'] ) ) {
+            if ( is_array( $params ) || isset( $params['callback'] ) && is_callable( $params['callback'] ) ) {
                 call_user_func( $params['callback'], $meta_key, $params );
             } else {
                 WPLib::trigger_error( sprintf( __( 'The specified callback for the field %1$s is not a callable function.' ), $meta_key ) );
@@ -55,10 +55,10 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
-	/**
-	 * @param string $id
-	 * @param array  $params
-	 */
+    /**
+     * @param string $id
+     * @param array  $params
+     */
     private function _render_text_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
@@ -75,10 +75,10 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
-	/**
-	 * @param string $id
-	 * @param array  $params
-	 */
+    /**
+     * @param string $id
+     * @param array  $params
+     */
     private function _render_checkbox_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
@@ -94,10 +94,10 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
-	/**
-	 * @param string $id
-	 * @param array  $params
-	 */
+    /**
+     * @param string $id
+     * @param array  $params
+     */
     private function _render_media_uploader_field( $id, $params ) {
 
         print '<p>' . PHP_EOL;
@@ -108,13 +108,13 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
     }
 
     /**
-<<<<<<< HEAD
+    <<<<<<< HEAD
      * @param string $id
      * @param array  $params
-=======
+    =======
      * @param int   $id
      * @param array $params
->>>>>>> foo
+    >>>>>>> foo
      */
     private function _render_select_field( $id, $params ) {
 
@@ -146,51 +146,51 @@ class ClubDeuce_Meta_Box_View extends WPLib_View_Base {
 
     }
 
-	/**
-	 * @param string $id
-	 * @param array  $params
-	 */
-	private function _render_textarea_field( $id, $params ) {
+    /**
+     * @param string $id
+     * @param array  $params
+     */
+    private function _render_textarea_field( $id, $params ) {
 
-		$params = wp_parse_args( $params, array(
-			'class' => 'widefat',
-			'cols'  => 50,
-			'rows'  => 6
-		) );
+        $params = wp_parse_args( $params, array(
+            'class' => 'widefat',
+            'cols'  => 50,
+            'rows'  => 6
+        ) );
 
-		print '<p>' . PHP_EOL;
-		printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
-		printf(
-			'<textarea id="%1$s" name="%2$s" placeholder="%3$s" class="%4$s" cols="%5$s" rows="%6$s">%7$s</textarea>' . PHP_EOL,
-			$id,
-			$params['name'],
-			$params['placeholder'],
-			$params['class'],
-			$params['cols'],
-			$params['rows'],
-			$params['value']
-		);
-		print '</p>';
+        print '<p>' . PHP_EOL;
+        printf( '<label for="%1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
+        printf(
+            '<textarea id="%1$s" name="%2$s" placeholder="%3$s" class="%4$s" cols="%5$s" rows="%6$s">%7$s</textarea>' . PHP_EOL,
+            $id,
+            $params['name'],
+            $params['placeholder'],
+            $params['class'],
+            $params['cols'],
+            $params['rows'],
+            $params['value']
+        );
+        print '</p>';
 
-	}
+    }
 
 
-	/**
-	 * @param string $id
-	 * @param array  $params
-	 */
+    /**
+     * @param string $id
+     * @param array  $params
+     */
     private function _render_date_field( $id, $params ) {
 
-    	print '<p>' . PHP_EOL;
-	    printf( '<label for="$1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
-	    printf(
-	    	'<input type="text" id="%1$s" name="%2$s" class="%3$s datepicker" value="%4$s">' . PHP_EOL,
-		    $id,
-		    $params['name'],
-		    $params['class'],
-		    $params['value']
-	    );
-	    print '</p>' . PHP_EOL;
+        print '<p>' . PHP_EOL;
+        printf( '<label for="$1$s">%2$s</label>' . PHP_EOL, $params['name'], $params['label'] );
+        printf(
+            '<input type="text" id="%1$s" name="%2$s" class="%3$s datepicker" value="%4$s">' . PHP_EOL,
+            $id,
+            $params['name'],
+            $params['class'],
+            $params['value']
+        );
+        print '</p>' . PHP_EOL;
 
     }
 
